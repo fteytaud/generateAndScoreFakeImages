@@ -1,4 +1,6 @@
-# Simple program to get fake images from thispersondoesnotexists and to evaluate them with AVA and koncept512
+# generateAndScoreFakeImages 
+
+Simple program to get fake images from thispersondoesnotexists and to evaluate them with AVA and koncept512
 
 ## Install
 
