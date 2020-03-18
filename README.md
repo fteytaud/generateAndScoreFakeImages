@@ -15,7 +15,8 @@ wget -O ava-mlsp/models/irnv2_mlsp_wide_orig/model_best_weights.h5 https://www.d
 mkdir models
 mkdir models/KonCept512
 cd models/KonCept512
-download https://osf.io/uznf8/download
+wget https://osf.io/uznf8/download
+mv download model_best_weights.h5
 ```
 
 ## Usage

@@ -89,7 +89,7 @@ def set_ava_scores(images_path):
         os.rename(image_full_path, new_image_name)
 
 def set_koncept512_scores(images_path):
-    model_name = os.getcwd() + '/content/models/KonCept512/bsz32_i1[384,512,3]_lMSE_o1[1]'
+    model_name = os.getcwd() + '/content/models/KonCept512/model_best_weights'
     pre = lambda im: preprocess_fn(img.ImageAugmenter(img.resize_image(im, (384, 512)), remap=False).fliplr(do=False).result)
     # build scoring model
     base_model, preprocess_fn = apps.get_model_imagenet(apps.InceptionResNetV2)
