@@ -16,7 +16,7 @@ mkdir models
 mkdir models/KonCept512
 cd models/KonCept512
 wget https://osf.io/uznf8/download
-mv download k512
+mv download k512_best_weights.h5
 ```
 
 ## Usage
