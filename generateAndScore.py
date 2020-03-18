@@ -46,8 +46,8 @@ def set_ava_scores(images_path):
     model_name = 'mlsp_wide_orig'
     input_shape = (None, None, 3)
     model_base = apps.model_inceptionresnet_pooled(input_shape)
-    # pre = apps.process_input[apps.InceptionResNetV2]
-    pre = lambda im: preprocess_fn(img.ImageAugmenter(img.resize_image(im, (384, 512)), remap=False).fliplr(do=False).result)
+    pre = apps.process_input[apps.InceptionResNetV2]
+    # pre = lambda im: preprocess_fn(img.ImageAugmenter(img.resize_image(im, (384, 512)), remap=False).fliplr(do=False).result)
     root_path = os.getcwd() + '/content/ava-mlsp/'
     input_feats = Input(shape=(5,5,16928), dtype='float32')
     x = apps.inception_block(input_feats, size=1024)
@@ -89,7 +89,7 @@ def set_ava_scores(images_path):
         os.rename(image_full_path, new_image_name)
 
 def set_koncept512_scores(images_path):
-    model_name = os.getcwd() + '/content/koniq/models/KonCept512/bsz32_i1[384,512,3]_lMSE_o1[1]'
+    model_name = os.getcwd() + '/content/models/KonCept512/bsz32_i1[384,512,3]_lMSE_o1[1]'
     pre = lambda im: preprocess_fn(img.ImageAugmenter(img.resize_image(im, (384, 512)), remap=False).fliplr(do=False).result)
     # build scoring model
     base_model, preprocess_fn = apps.get_model_imagenet(apps.InceptionResNetV2)
@@ -133,16 +133,16 @@ def main(argv):
     output_dir=''
 
     try:
-        opts, args = getopt.getopt(argv,'o:c:k:a:h',['output_images=','generate=','ava_score=','koncept_score=', 'help'])
+        opts, args = getopt.getopt(argv,'o:c:k:a:h',['output_images=','generate=','ava_inputs=','koncept_inputs=', 'help'])
     except getopt.GetoptError:
         usage()
         sys.exit(2)
     for opt, arg in opts:
         if opt in ('-c', '--generate'):
             nb_of_images = arg
-        elif opt in ("-k", "--koncept_score"):
+        elif opt in ("-k", "--koncept_inputs"):
             koncept_directory = arg
-        elif opt in ("-a", "--ava_score"):
+        elif opt in ("-a", "--ava_inputs"):
             ava_directory = arg
         elif opt in ("-o", "--output_images"):
             output_dir = arg
@@ -165,14 +165,21 @@ def main(argv):
             save_online_person(number_of_images=int(nb_of_images), output_dir=output_dir)
 
     if (koncept_directory != ''):
-        set_koncept512_scores(input_directory=koncept_directory)
+        set_koncept512_scores(images_path=koncept_directory)
     if (ava_directory != ''):
-        set_ava_scores(input_directory=ava_directory)
+        set_ava_scores(images_path=ava_directory)
 
 
 
 def usage():
-    print("prout")
+    # To generate and get number_of_images from thispersondoesnotexists:
+    print("python generateAndScore.py --generate=number_of_images --output_images=output_folder")
+    # To evaluate thx to koncept512 the images from folder data_input:
+    print("python generateAndScore.py --koncept_inputs=data_input")
+    # To evaluate thx to ava the images from folder data_input:
+    print("python generateAndScore.py --ava_inputs=data_input")
+    # To do everything:
+    print("python generateAndScore.py --generate=number_of_images --output_images=myimages --koncept_inputs=myimages --ava_inputs=myimages")
 
 
 if __name__ == '__main__':
