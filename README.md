@@ -1,6 +1,6 @@
 # generateAndScoreFakeImages 
 
-Simple program to get fake images from thispersondoesnotexists and to evaluate them with AVA and koncept512
+Simple program to get fake images from thispersondoesnotexist and to evaluate them with AVA and koncept512
 
 ## Install
 
@@ -22,7 +22,7 @@ mv download k512_best_weights.h5
 ## Usage
 
 ```Bash
-# To generate and get number_of_images from thispersondoesnotexists:
+# To generate and get number_of_images from thispersondoesnotexist:
 python generateAndScore.py --generate=number_of_images --output_images=output_folder
 # To evaluate thx to koncept512 the images from folder data_input:
 python generateAndScore.py --koncept_inputs=data_input
