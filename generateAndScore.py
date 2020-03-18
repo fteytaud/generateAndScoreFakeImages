@@ -154,6 +154,7 @@ def main(argv):
         sys.exit(2)
     if (nb_of_images != -1 and output_dir == ''):
         usage()
+        sys.exit(2)
 
     if (nb_of_images != -1):
         if (output_dir[-1] != '/'):
